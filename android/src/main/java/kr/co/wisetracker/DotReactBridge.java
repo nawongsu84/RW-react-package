@@ -39,7 +39,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
 
     private final String TAG = "DotReactBridge";
 
-    public BridgeModule(@Nonnull ReactApplicationContext reactContext) {
+    public DotReactBridge(@Nonnull ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
