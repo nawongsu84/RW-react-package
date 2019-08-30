@@ -100,7 +100,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setInstallReferrer(String url, Long beginTime) {
         try {
-            DOT.setInstallReferrer(getReactApplicationContext(), url, beginTime);
+            DOT.setInstallReferrer(getReactApplicationContext(), url, beginTime, 0l);
         } catch (Exception e) {
             Log.e(TAG, "set install referrer error !!", e);
         }
