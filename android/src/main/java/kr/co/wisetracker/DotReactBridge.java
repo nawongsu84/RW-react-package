@@ -50,7 +50,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     public void initialization() {
         try {
             Log.d(TAG, "initialization call");
-            //DOT.initialization(getReactApplicationContext());
+            DOT.initialization(getReactApplicationContext());
         } catch (Exception e) {
             Log.e(TAG, "initialization error !!", e);
         }
