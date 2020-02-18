@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.installreferrer.api.ReferrerDetails;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sdk.wisetracker.base.model.User;
-import com.sdk.wisetracker.dot.open.api.DOT;
-import com.sdk.wisetracker.dot.open.model.Click;
-import com.sdk.wisetracker.dot.open.model.Conversion;
-import com.sdk.wisetracker.dot.open.model.Page;
-import com.sdk.wisetracker.dot.open.model.Purchase;
+import com.sdk.wisetracker.base.open.model.User;
 import com.sdk.wisetracker.dox.open.api.DOX;
 import com.sdk.wisetracker.dox.open.model.XConversion;
 import com.sdk.wisetracker.dox.open.model.XEvent;
@@ -23,6 +19,7 @@ import com.sdk.wisetracker.dox.open.model.XIdentify;
 import com.sdk.wisetracker.dox.open.model.XProduct;
 import com.sdk.wisetracker.dox.open.model.XProperties;
 import com.sdk.wisetracker.dox.open.model.XPurchase;
+import com.sdk.wisetracker.new_dot.open.DOT;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,7 +49,8 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialization() {
         try {
-            DOT.initialization(getReactApplicationContext());
+            Log.d(TAG, "initialization call");
+            //DOT.initialization(getReactApplicationContext());
         } catch (Exception e) {
             Log.e(TAG, "initialization error !!", e);
         }
@@ -61,7 +59,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setPushReceiver(Intent intent) {
         try {
-            DOT.setPushReceiver(getReactApplicationContext(), intent);
+            DOT.setPushReceiver(intent);
         } catch (Exception e) {
             Log.e(TAG, "set push receiver error !!", e);
         }
@@ -70,7 +68,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setPushClick(Intent intent) {
         try {
-            DOT.setPushClick(getReactApplicationContext(), intent);
+            DOT.setPushClick(intent);
         } catch (Exception e) {
             Log.e(TAG, "set push click error !!", e);
         }
@@ -82,7 +80,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             if (intent == null) {
                 return;
             }
-            DOT.setDeepLink(getReactApplicationContext(), intent);
+            DOT.setDeepLink(intent);
         } catch (Exception e) {
             Log.e(TAG, "set deep link error !!", e);
         }
@@ -91,16 +89,16 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setDeepLink(String url) {
         try {
-            DOT.setDeepLink(getReactApplicationContext(), url);
+            DOT.setDeepLink(url);
         } catch (Exception e) {
             Log.e(TAG, "set deep link error !!", e);
         }
     }
 
     @ReactMethod
-    public void setInstallReferrer(String url, Long beginTime) {
+    public void setInstallReferrer(ReferrerDetails referrerDetails) {
         try {
-            DOT.setInstallReferrer(getReactApplicationContext(), url, beginTime, 0l);
+            DOT.setInstallReferrer(referrerDetails);
         } catch (Exception e) {
             Log.e(TAG, "set install referrer error !!", e);
         }
@@ -109,7 +107,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setFacebookReferrerData(Bundle bundle) {
         try {
-            DOT.setFacebookReferrer(getReactApplicationContext(), bundle);
+            DOT.setFacebookReferrer(bundle);
         } catch (Exception e) {
             Log.e(TAG, "set facebook referrer error !!", e);
         }
@@ -158,74 +156,91 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setPage(String json) {
+    public void logScreen(String pageJson) {
         try {
-            if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "page data is null or empty");
+            Log.d(TAG, "log screen event");
+            if (TextUtils.isEmpty(pageJson)) {
+                Log.d(TAG, "page json is null");
                 return;
             }
-            Page page = new Gson().fromJson(json, Page.class);
-            if (page == null) {
-                Log.d(TAG, "page gson converter is null");
+            Log.d(TAG, "raw data : " + pageJson);
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> pageMap = new Gson().fromJson(pageJson, type);
+            if (pageMap == null) {
+                Log.d(TAG, "page map is null");
                 return;
             }
-            DOT.setPage(page);
+            onStartPage();
+            DOT.logScreen(pageMap);
         } catch (Exception e) {
-            Log.e(TAG, "set page error !!", e);
+            Log.e(TAG, "log screen error !!", e);
         }
     }
 
     @ReactMethod
-    public void setPurchase(String json) {
+    public void logPurchase(String purchaseJson) {
         try {
-            if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "purchase data is null or empty");
+            Log.d(TAG, "log purchase event");
+            if (TextUtils.isEmpty(purchaseJson)) {
+                Log.d(TAG, "purchase json is null");
                 return;
             }
-            Purchase purchase = new Gson().fromJson(json, Purchase.class);
-            if (purchase == null) {
-                Log.d(TAG, "purchase gson converter is null");
+            Log.d(TAG, "raw data : " + purchaseJson);
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> purchaseMap = new Gson().fromJson(purchaseJson, type);
+            if (purchaseMap == null) {
+                Log.d(TAG, "purchase map is null");
                 return;
             }
-            DOT.setPurchase(purchase);
+            DOT.logPurchase(purchaseMap);
         } catch (Exception e) {
-            Log.e(TAG, "set purchase error !!", e);
+            Log.e(TAG, "log purchase error !!", e);
         }
     }
 
     @ReactMethod
-    public void setConversion(String json) {
+    public void logEvent(String conversionJson) {
         try {
-            if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "conversion data is null or empty");
+            Log.d(TAG, "log conversion event");
+            if (TextUtils.isEmpty(conversionJson)) {
+                Log.d(TAG, "conversion json is null");
                 return;
             }
-            Conversion conversion = new Gson().fromJson(json, Conversion.class);
-            if (conversion == null) {
-                Log.d(TAG, "conversion gson converter is null");
+            Log.d(TAG, "raw data : " + conversionJson);
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> conversionMap = new Gson().fromJson(conversionJson, type);
+            if (conversionMap == null) {
+                Log.d(TAG, "conversion map is null");
                 return;
             }
-            DOT.setConversion(conversion);
+            DOT.logEvent(conversionMap);
         } catch (Exception e) {
-            Log.e(TAG, "set conversion error !!", e);
+            Log.e(TAG, "log conversion error !!", e);
         }
     }
 
     @ReactMethod
-    public void setClick(String json) {
+    public void logClick(String clickJson) {
         try {
-            if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "click data is null or empty");
+            Log.d(TAG, "log click event");
+            if (TextUtils.isEmpty(clickJson)) {
+                Log.d(TAG, "click json is null");
                 return;
             }
-            Click click = new Gson().fromJson(json, Click.class);
-            if (click == null) {
-                Log.d(TAG, "click gson converter is null");
+            Log.d(TAG, "raw data : " + clickJson);
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
+            Map<String, Object> clickMap = new Gson().fromJson(clickJson, type);
+            if (clickMap == null) {
+                Log.d(TAG, "click map is null");
                 return;
             }
-            DOT.setClick(click);
+            DOT.logEvent(clickMap);
         } catch (Exception e) {
-            Log.e(TAG, "set click error !!", e);
+            Log.e(TAG, "log click error !!", e);
         }
     }
 
@@ -307,7 +322,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void logEvent(String json) {
+    public void logXEvent(String json) {
 
         try {
 
@@ -333,7 +348,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void logConversion(String json) {
+    public void logXConversion(String json) {
 
         try {
 
@@ -359,7 +374,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void logPurchase(String json) {
+    public void logXPurchase(String json) {
 
         try {
 

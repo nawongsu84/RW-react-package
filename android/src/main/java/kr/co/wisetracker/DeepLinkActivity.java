@@ -3,10 +3,9 @@ package kr.co.wisetracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.sdk.wisetracker.dot.open.api.DOT;
+import com.sdk.wisetracker.new_dot.open.DOT;
 
 public class DeepLinkActivity extends Activity {
 
@@ -29,7 +28,7 @@ public class DeepLinkActivity extends Activity {
                 Log.i("[wisetracker]", "intent is null !!");
                 return;
             }
-            DOT.setDeepLink(this, intent);
+            DOT.setDeepLink(intent);
             moveToMainActivity();
         } catch (Exception e) {
             Log.e("[wisetracker]", "set sdk error !!", e);
