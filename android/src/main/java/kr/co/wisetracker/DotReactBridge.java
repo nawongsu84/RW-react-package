@@ -171,7 +171,6 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
                 Log.d(TAG, "page map is null");
                 return;
             }
-            onStartPage();
             DOT.logScreen(pageMap);
         } catch (Exception e) {
             Log.e(TAG, "log screen error !!", e);
