@@ -1,7 +1,7 @@
 ### 1. 리액트 플러그인 설치 (AOS/IOS 공통 설정)
 
 #### 1.1 플러그인 다운로드
-터미널에서 아래의 명령어를 통해 리액트 플러그인을 프로젝트에 다운로드 합니다.
+-> 터미널에서 아래의 명령어를 통해 리액트 플러그인을 프로젝트에 다운로드 합니다.
 
 ```shell
 $ npm install --save git+https://github.com/WisetrackerTechteam/RW-react-package.git
@@ -9,15 +9,23 @@ $ npm install --save git+https://github.com/WisetrackerTechteam/RW-react-package
 
 #### 1.2 플러그인 설치 확인
 
-프로젝트에 플러그인이 정상 다운로드되면 다음과 같이 플러그인 파일이 추가된 것을 확인할 수 있습니다.
+-> 프로젝트에 플러그인이 정상 다운로드되면 다음과 같이 플러그인 파일이 추가된 것을 확인할 수 있습니다.
 
 ![]()
 
 ### 2. Android 리액트 플러그인 설정
 
 #### 2.1 Http 통신 허용 설정 
--> 리액트 프로젝트의 **targetSdkVersion 28 이상**일 경우 http 통신 허용 설정을 해야 합니다.
-   app/res/xml/network_security_config (**없으면 생성**) 위치에 아래의 내용 추가
+-> 프로젝트의 **Target API 28 이상**일 경우 Http 통신 허용을 설정해 주세요.
+
+```xml
+<!-- AndroidManifest.xml -->
+<application
+	android:icon="@mipmap/ic_launcher"
+	android:label="@string/app_name"
+	android:networkSecurityConfig="@xml/network_security_config"
+	android:theme="@style/AppTheme">
+```
 
 ```xml
 <!-- app/res/xml/network_security_config.xml -->
