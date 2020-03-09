@@ -104,4 +104,5 @@ $ npm install --save git+https://github.com/WisetrackerTechteam/RW-react-package
 
 ```javascript
 import DotReactBridge from 'DotReactNativeBridge/wrapper/react/DotReactBridge.js';
+import Dop from 'DotReactNativeBridge/dop-native-sdk-inf.js'
 ```
