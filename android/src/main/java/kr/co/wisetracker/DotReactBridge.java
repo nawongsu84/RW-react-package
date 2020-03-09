@@ -146,6 +146,33 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void onPlayStart() {
+        try {
+            DOT.onPlayStart(getReactApplicationContext());
+        } catch (Exception e) {
+            Log.e(TAG, "onPlayStart error !!", e);
+        }
+    }
+
+    @ReactMethod
+    public void onPlayStart(int period) {
+        try {
+            DOT.onPlayStart(getReactApplicationContext(), period);
+        } catch (Exception e) {
+            Log.e(TAG, "onPlayStart error !!", e);
+        }
+    }
+
+    @ReactMethod
+    public void onPlayStop() {
+        try {
+            DOT.onPlayStop(getReactApplicationContext());
+        } catch (Exception e) {
+            Log.e(TAG, "onPlayStop error !!", e);
+        }
+    }
+
+    @ReactMethod
     public void onStartPage() {
         DOT.onStartPage(getReactApplicationContext());
     }
