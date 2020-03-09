@@ -157,7 +157,16 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void onPlayStart(int period) {
         try {
-            DOT.onPlayStart(getReactApplicationContext(), period);
+            if (TextUtils.isEmpty(period)) {
+                DOT.onPlayStart(getReactApplicationContext());
+            } else {
+                try {
+                    DOT.onPlayStart(getReactApplicationContext(), Integer.valueOf(period));
+                } catch (Exception e) {
+                    DOT.onPlayStart(getReactApplicationContext());
+                    Log.e(TAG, "onPlayStart error !!", e);
+                }
+            }
         } catch (Exception e) {
             Log.e(TAG, "onPlayStart error !!", e);
         }
