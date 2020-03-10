@@ -75,6 +75,15 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setPushToken(String pushToken) {
+        try {
+            DOT.setPushToken(pushToken);
+        } catch (Exception e) {
+            Log.e(TAG, "set push token error !!", e);
+        }
+    }
+
+    @ReactMethod
     public void setDeepLink(Intent intent) {
         try {
             if (intent == null) {
@@ -105,20 +114,11 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFacebookReferrerData(Bundle bundle) {
+    public void setFacebookReferrer(Bundle bundle) {
         try {
             DOT.setFacebookReferrer(bundle);
         } catch (Exception e) {
             Log.e(TAG, "set facebook referrer error !!", e);
-        }
-    }
-
-    @ReactMethod
-    public void setPushToken(String pushToken) {
-        try {
-            DOT.setPushToken(pushToken);
-        } catch (Exception e) {
-            Log.e(TAG, "set push token error !!", e);
         }
     }
 
@@ -273,7 +273,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
                 Log.d(TAG, "click map is null");
                 return;
             }
-            DOT.logEvent(clickMap);
+            DOT.logClick(clickMap);
         } catch (Exception e) {
             Log.e(TAG, "log click error !!", e);
         }
@@ -362,7 +362,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         try {
 
             if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "log event data is null or empty");
+                Log.d(TAG, "log Xevent data is null or empty");
                 return;
             }
 
@@ -373,7 +373,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             }
 
             xEvent.setXProperties(getXProperties(json));
-            DOX.logEvent(xEvent);
+            DOX.logXEvent(xEvent);
             Log.d(TAG, "xEvent data: " + new Gson().toJson(xEvent));
 
         } catch (Exception e) {
@@ -388,7 +388,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         try {
 
             if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "log conversion data is null or empty");
+                Log.d(TAG, "log Xconversion data is null or empty");
                 return;
             }
 
@@ -399,7 +399,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             }
 
             xConversion.setXProperties(getXProperties(json));
-            DOX.logConversion(xConversion);
+            DOX.logXConversion(xConversion);
             Log.d(TAG, "xConversion data: " + new Gson().toJson(xConversion));
 
         } catch (Exception e) {
@@ -414,7 +414,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         try {
 
             if (TextUtils.isEmpty(json)) {
-                Log.d(TAG, "log purchase data is null or empty");
+                Log.d(TAG, "log Xpurchase data is null or empty");
                 return;
             }
 
@@ -426,7 +426,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
 
             xPurchase.setXProperties(getXProperties(json));
             setProductXProperties(xPurchase, json);
-            DOX.logPurchase(xPurchase);
+            DOX.logXPurchase(xPurchase);
             Log.d(TAG, "xPurchase data: " + new Gson().toJson(xPurchase));
 
         } catch (Exception e) {
