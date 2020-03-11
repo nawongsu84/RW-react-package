@@ -90,6 +90,7 @@
 @property (nonatomic) NSString *wtref;
 @property (nonatomic) long long wtclkTime;
 @property (nonatomic) NSString *isDrUpdate;
+@property (nonatomic) NSString *openDl;
 
 //Referrer
 @property (nonatomic) NSString *its;

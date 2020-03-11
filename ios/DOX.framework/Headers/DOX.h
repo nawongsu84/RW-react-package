@@ -27,7 +27,7 @@ FOUNDATION_EXPORT const unsigned char DOXVersionString[];
 
 @interface DOX : NSObject
 
-+ (void)initialization;
+//+ (void)initialization;
 + (void)setUserId:(NSString *)userId;
 + (void)setDeepLink:(NSString *)referrer;
 + (void)setPushId:(NSString *)pid;

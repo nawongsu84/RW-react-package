@@ -17,14 +17,83 @@
 
   RCT_EXPORT_METHOD(initialization)
   {
-    NSLog(@"initializationinitializationinitializationinitializationinitialization");
-    [DOT initialization:NULL];
+     dispatch_async(dispatch_get_main_queue(), ^{
+       [DOT initialization:nil application:nil];
+    });
   }
+
+RCT_EXPORT_METHOD(logClick:(NSString *)click)
+{
+  NSLog(@"============ click : %@================", click);
+  NSData *jsonData = [click dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *clickDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+  
+  [DOT logClick:clickDict];
+  
+}
+
+RCT_EXPORT_METHOD(logEvent:(NSString *)event)
+{
+  NSLog(@"============ event : %@================", event);
+  NSData *jsonData = [event dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *eventDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+  
+  [DOT logEvent:eventDict];
+  
+}
+
+RCT_EXPORT_METHOD(logScreen:(NSString *)screen)
+{
+  NSLog(@"============ screen : %@================", screen);
+  NSData *jsonData = [screen dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *screenDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+  
+  [DOT logScreen:screenDict];
+  
+}
+
+RCT_EXPORT_METHOD(logPurchase:(NSString *)puchase)
+{
+  NSLog(@"============ puchase : %@================", puchase);
+  NSData *jsonData = [puchase dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *puchaseDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+  
+  [DOT logPurchase:puchaseDict];
+  
+}
+
+RCT_EXPORT_METHOD(onStartPage)
+{
+  NSLog(@"============ onStartWebPage================");
+  [DOT onStartWebPage];
+  
+}
+
+RCT_EXPORT_METHOD(setUser:(NSDictionary *)userDict)
+{
+  NSLog(@"============ userDict : %@================", userDict);
+  
+  
+  User *user = [[User alloc] init];
+  user = [self convertToDOTUser:userDict];
+  
+  NSLog(@"============ user memeber : %@================", user.member);
+  [DOT setUser:user];
+  
+}
+
+RCT_EXPORT_METHOD(setUserLogout)
+{
+  [DOT setUserLogout];
+}
 
   RCT_EXPORT_METHOD(setClick:(NSDictionary *)clickDict)
   {
     NSLog(@"============ clickDict : %@================", clickDict);
-    
     
     Click *click = [[Click alloc] init];
     click = [self convertToDOTClick:clickDict];
@@ -508,15 +577,24 @@
 
 //DOX Bridge 함수
 
-RCT_EXPORT_METHOD(userIdentify:(NSDictionary *)userIdentifyDict)
+RCT_EXPORT_METHOD(userIdentify:(NSString *)userIdentify)
 {
-  NSLog(@"============ userIdentify : %@================", userIdentifyDict);
+  NSLog(@"============ userIdentify : %@================", userIdentify);
+  NSData *jsonData = [userIdentify dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *userIdentifyDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+  
   [DOX userIdentifyWith:userIdentifyDict];
 }
 
-RCT_EXPORT_METHOD(groupIdentify:(NSDictionary *)groupIdentifyDict)
+RCT_EXPORT_METHOD(groupIdentify:(NSString *)groupIdentify)
 {
-  NSLog(@"============ groupIdentifyDict : %@================", groupIdentifyDict);
+  NSLog(@"============ groupIdentify : %@================", groupIdentify);
+  
+  NSData *jsonData = [groupIdentify dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *groupIdentifyDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+  
   NSDictionary *groups = (NSDictionary *)[groupIdentifyDict objectForKey:@"groups"];
   NSDictionary *groupproperties = (NSDictionary *)[groupIdentifyDict objectForKey:@"groupproperties"];
   
@@ -524,22 +602,33 @@ RCT_EXPORT_METHOD(groupIdentify:(NSDictionary *)groupIdentifyDict)
 }
 
 
-RCT_EXPORT_METHOD(logEvent:(NSDictionary *)eventDict)
+RCT_EXPORT_METHOD(logXEvent:(NSString *)event)
 {
-  NSLog(@"============ eventDict : %@================", eventDict);
+  NSLog(@"============ event : %@================", event);
+  NSData *jsonData = [event dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *eventDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+  
   [DOX logEventWith:eventDict];
 }
 
-RCT_EXPORT_METHOD(logConversion:(NSDictionary *)conversionDict)
+RCT_EXPORT_METHOD(logXConversion:(NSString *)conversion)
 {
-  NSLog(@"============ conversionDict : %@================", conversionDict);
+  NSLog(@"============ conversion : %@================", conversion);
+  NSData *jsonData = [conversion dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *conversionDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
   [DOX logConversionWith:conversionDict];
 }
 
-RCT_EXPORT_METHOD(logPurchase:(NSDictionary *)purchaseDict)
+RCT_EXPORT_METHOD(logXPurchase:(NSString *)purchase)
 {
-  NSLog(@"============ purchaseDict : %@================", purchaseDict);
-  [DOX logRevenueWith:purchaseDict];
+  NSLog(@"============ purchase : %@================", purchase);
+  NSData *jsonData = [purchase dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *purchseDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
+  
+  [DOX logRevenueWith:purchseDict];
 }
 
 @end
