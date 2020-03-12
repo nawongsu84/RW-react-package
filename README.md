@@ -103,7 +103,7 @@ XCode 프로젝트의 info.plist 파일에 제공받은 App Analytics Key 정보
 info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보기**를 선탁하신뒤, 제공받으신 Key를 **Ctrl+V** 하시면 됩니다
 제공받은 Key값은 아래의 예시와 같이 xml 형태를 가지고 있는 데이터 입니다
 
-\`\`\`xml
+```xml
 <key>dotAuthorizationKey</key>
 <dict>
 	<key>domain</key>
@@ -120,10 +120,10 @@ info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보
 	<string>true</string>
 	<key>accessToken</key>
 	<string></string>
-  <key>useMode</key>
-  <string>2</string>
+	<key>useMode</key>
+	<string>1</string>
 </dict>
-\`\`\`
+```
 
 위의 Key 중에 isDebug는 collector 로 전송되는 분석 데이터를 Xcode 에서 확인할 수 있게 해주는 boolean 변수로 사용되고 있습니다
 SDK를 적용해야 하는 앱 개발자는 이 값을 true로 설정하고, SDK의 기본 적용 및 추가 분석 코드 적용 과정에서 사용할 수 있습니다
@@ -134,13 +134,13 @@ SDK를 적용해야 하는 앱 개발자는 이 값을 true로 설정하고, SDK
 http통신을 허용하기 위해 NSAppTransportSecurity 를 아래와 같이 추가합니다
 
 
-\`\`\`xml
+```xml
 <key>NSAppTransportSecurity</key>
 <dict>
 	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 </dict>
-\`\`\`
+```
 
 ### 4. 플러그인 초기화
 리액트 프로젝트에서 앱 시작시 최초 로드되는 .js 파일에 아래 코드를 추가합니다.
