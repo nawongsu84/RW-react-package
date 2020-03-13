@@ -9,9 +9,9 @@ $ npm install --save git+https://github.com/WisetrackerTechteam/RW-react-package
 
 #### 1.2 플러그인 설치 확인
 
--> 프로젝트에 플러그인이 정상 다운로드되면 다음과 같이 플러그인 파일이 추가된 것을 확인할 수 있습니다.
+-> 프로젝트에 플러그인이 정상 다운로드되면 node_modules 폴더 아래 다음과 같이 플러그인 파일이 추가된 것을 확인할 수 있습니다.
 
-![]()
+![](http://www.wisetracker.co.kr/wp-content/uploads/2020/03/rw_RN_folder.png)
 
 ### 2. Android 리액트 플러그인 설정
 
@@ -98,6 +98,22 @@ $ npm install --save git+https://github.com/WisetrackerTechteam/RW-react-package
 ```
 
 ### 3. IOS 리액트 플러그인 설정
+1) Framework & Bridge 파일 세팅
+
+1-1) node_modules - DotReactNativeBridge - ios 경로에 4개의 Framework파일과 2개의 소스파일을 Xcode 프로젝트 최상단 폴더에 Drag & Drop 방식으로 가져다 놓습니다. 
+![](http://www.wisetracker.co.kr/wp-content/uploads/2020/03/file_path-1024x511.png)
+
+1-2) 위 작업 중 반드시 Copy items if needed 옵션을 체크합니다.
+![](http://www.wisetracker.co.kr/wp-content/uploads/2020/03/drag_drop_option.png)
+
+1-3) 작업 완료 후 Xcode 프로젝트 폴더에 아래와 같이 설치 되었음을 확인할 수 있습니다.
+<img src="http://www.wisetracker.co.kr/wp-content/uploads/2020/03/xcode_file_path.png" width="350">
+
+
+1-4) Targets - General - Frameworks, Libraries, and Embedded Content 메뉴로 이동하여 Embed 옵션을 Embed Without Signing로 세팅합니다. 
+![](http://www.wisetracker.co.kr/wp-content/uploads/2020/03/framework_option.png)
+
+2) info.plist 값 세팅
 
 XCode 프로젝트의 info.plist 파일에 제공받은 App Analytics Key 정보를 추가합니다
 info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보기**를 선탁하신뒤, 제공받으신 Key를 **Ctrl+V** 하시면 됩니다
@@ -106,7 +122,6 @@ info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보
 ```xml
 <key>dotAuthorizationKey</key>
 <dict>
-<<<<<<< HEAD
     <key>accessToken</key>
     <string></string>
     <key>domain</key>
@@ -123,24 +138,6 @@ info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보
     <string>102</string>
     <key>useMode</key>
     <integer>1</integer>
-=======
-	<key>domain</key>
-	<string>http://collector.naver.wisetracker.co.kr</string>
-	<key>serviceNumber</key>
-	<string>103</string>
-	<key>expireDate</key>
-	<string>14</string>
-	<key>isDebug</key>
-	<string>true</string>
-	<key>isInstallRetention</key>
-	<string>true</string>
-	<key>isFingerPrint</key>
-	<string>true</string>
-	<key>accessToken</key>
-	<string></string>
-	<key>useMode</key>
-	<string>1</string>
->>>>>>> 799960d245e85c83f01fec538843b5e1b98db8d9
 </dict>
 ```
 
