@@ -106,6 +106,7 @@ info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보
 ```xml
 <key>dotAuthorizationKey</key>
 <dict>
+<<<<<<< HEAD
     <key>accessToken</key>
     <string></string>
     <key>domain</key>
@@ -122,6 +123,24 @@ info.plist 파일을 open할때 **list로 보기** 가 아니라 **source로 보
     <string>102</string>
     <key>useMode</key>
     <integer>1</integer>
+=======
+	<key>domain</key>
+	<string>http://collector.naver.wisetracker.co.kr</string>
+	<key>serviceNumber</key>
+	<string>103</string>
+	<key>expireDate</key>
+	<string>14</string>
+	<key>isDebug</key>
+	<string>true</string>
+	<key>isInstallRetention</key>
+	<string>true</string>
+	<key>isFingerPrint</key>
+	<string>true</string>
+	<key>accessToken</key>
+	<string></string>
+	<key>useMode</key>
+	<string>1</string>
+>>>>>>> 799960d245e85c83f01fec538843b5e1b98db8d9
 </dict>
 ```
 
