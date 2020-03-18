@@ -50,7 +50,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     public void initialization() {
         try {
             Log.d(TAG, "initialization call");
-            //DOT.initialization(getReactApplicationContext());
+            DOT.open("react-native");
         } catch (Exception e) {
             Log.e(TAG, "initialization error !!", e);
         }
@@ -148,7 +148,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void onPlayStart() {
         try {
-            DOT.onPlayStart(getReactApplicationContext());
+            DOT.onPlayStart();
         } catch (Exception e) {
             Log.e(TAG, "onPlayStart error !!", e);
         }
@@ -158,12 +158,12 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     public void onPlayStart(String period) {
         try {
             if (TextUtils.isEmpty(period)) {
-                DOT.onPlayStart(getReactApplicationContext());
+                DOT.onPlayStart();
             } else {
                 try {
-                    DOT.onPlayStart(getReactApplicationContext(), Integer.valueOf(period));
+                    DOT.onPlayStart(Integer.valueOf(period));
                 } catch (Exception e) {
-                    DOT.onPlayStart(getReactApplicationContext());
+                    DOT.onPlayStart();
                     Log.e(TAG, "onPlayStart error !!", e);
                 }
             }
@@ -175,7 +175,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void onPlayStop() {
         try {
-            DOT.onPlayStop(getReactApplicationContext());
+            DOT.onPlayStop();
         } catch (Exception e) {
             Log.e(TAG, "onPlayStop error !!", e);
         }
@@ -183,12 +183,12 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void onStartPage() {
-        DOT.onStartPage(getReactApplicationContext());
+        DOT.onStartPage(null);
     }
 
     @ReactMethod
     public void onStopPage() {
-        DOT.onStopPage(getReactApplicationContext());
+        DOT.onStopPage();
     }
 
     @ReactMethod
