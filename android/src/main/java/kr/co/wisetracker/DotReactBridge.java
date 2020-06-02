@@ -32,6 +32,10 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+/**
+ * React <-> Android 브릿지 클래스
+ * 브릿지를 통해 React에서 넘어온 데이터를 Android SDK로 전달
+ */
 public class DotReactBridge extends ReactContextBaseJavaModule {
 
     private final String TAG = "DotReactBridge";
