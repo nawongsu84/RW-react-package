@@ -10,8 +10,7 @@ https://github.com/WisetrackerTechteam/RW-react-android-plugin
 3. 플러그인 제공 파일
 
 1) AndroidManifest.xml
-- react 안드로이드 프로젝트의 AndroidManifest.xml 파일에 포함될 설정 내용
-- Native SDK의 AndroidManifest.xml 파일의 내용과 동일
+- react 안드로이드 프로젝트의 AndroidManifest.xml 파일에 포함될 사용자 정의 설정 내용
 
 2) build.gradle
 플러그인에서 사용할 라이브러리 설정 파일 (RW SDK 의존성)
