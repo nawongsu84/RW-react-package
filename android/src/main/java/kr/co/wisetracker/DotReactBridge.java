@@ -33,8 +33,8 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 /**
- * React <-> Android 브릿지 클래스
- * 브릿지를 통해 React에서 넘어온 데이터를 Android SDK로 전달
+ * react <-> react android 플러그인 브릿지 클래스
+ * react에서 넘어온 데이터를 통해 Natvie SDK 호출
  */
 public class DotReactBridge extends ReactContextBaseJavaModule {
 

@@ -12,7 +12,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
- * 브릿지 패키지 등록 class
+ * 브릿지 모듈 등록 class
  */
 public class BridgePackage implements ReactPackage {
 
@@ -26,6 +26,7 @@ public class BridgePackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@Nonnull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
+        // 브릿지 등록
         modules.add(new DotReactBridge(reactContext));
         return modules;
     }
