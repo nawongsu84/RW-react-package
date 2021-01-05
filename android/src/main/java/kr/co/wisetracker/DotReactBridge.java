@@ -55,6 +55,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         try {
             Log.d(TAG, "initialization call");
             DOT.open("react-native");
+            DOT.initialization(getReactApplicationContext());
         } catch (Exception e) {
             Log.e(TAG, "initialization error !!", e);
         }
@@ -72,7 +73,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setPushClick(Intent intent) {
         try {
-            DOT.setPushClick(intent);
+            DOT.setPushClick(getReactApplicationContext(), intent);
         } catch (Exception e) {
             Log.e(TAG, "set push click error !!", e);
         }
@@ -93,7 +94,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             if (intent == null) {
                 return;
             }
-            DOT.setDeepLink(intent);
+            DOT.setDeepLink(getReactApplicationContext(), intent);
         } catch (Exception e) {
             Log.e(TAG, "set deep link error !!", e);
         }
@@ -102,7 +103,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setDeepLink(String url) {
         try {
-            DOT.setDeepLink(url);
+            DOT.setDeepLink(getReactApplicationContext(), url);
         } catch (Exception e) {
             Log.e(TAG, "set deep link error !!", e);
         }

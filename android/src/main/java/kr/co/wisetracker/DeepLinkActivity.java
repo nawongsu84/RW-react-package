@@ -32,7 +32,7 @@ public class DeepLinkActivity extends Activity {
                 Log.i("[wisetracker]", "intent is null !!");
                 return;
             }
-            DOT.setDeepLink(intent);
+            DOT.setDeepLink(getApplicationContext(), getIntent());
             moveToMainActivity();
         } catch (Exception e) {
             Log.e("[wisetracker]", "set sdk error !!", e);
