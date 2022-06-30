@@ -33,16 +33,14 @@ android {
     lintOptions {
         abortOnError false
     }
-}
-
+} 
 repositories {
     mavenCentral()
     maven { url 'https://wisetracker.jfrog.io/artifactory/wisetracker-gradle-release-local' }
-}
-
+} 
 dependencies {
     compile 'com.facebook.react:react-native:+'
-    implementation "com.sdk.wisetracker:base_module:1.0.35"
-    implementation "com.sdk.wisetracker:new_dot_module:1.0.27"
-    implementation 'com.sdk.wisetracker:dox_module:1.0.12'
+    implementation "com.sdk.wisetracker:base_module:+"
+    implementation "com.sdk.wisetracker:new_dot_module:+"
+    implementation 'com.sdk.wisetracker:dox_module:+'
 }
