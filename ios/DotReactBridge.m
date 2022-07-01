@@ -50,9 +50,9 @@ RCT_EXPORT_METHOD(logScreen:(NSString *)screen)
   NSError *error;
   NSMutableDictionary *screenDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
   
-  [DOT logScreen:screenDict];
-  
+  [DOT logScreen:screenDict]; 
 }
+
 
 RCT_EXPORT_METHOD(logPurchase:(NSString *)puchase)
 {
@@ -67,9 +67,8 @@ RCT_EXPORT_METHOD(logPurchase:(NSString *)puchase)
 
 RCT_EXPORT_METHOD(onStartPage)
 {
-  NSLog(@"============ onStartWebPage================");
-  [DOT onStartWebPage];
-  
+  NSLog(@"============ onStartPage================");
+  [DOT onStartPage];
 }
 
 RCT_EXPORT_METHOD(setUser:(NSDictionary *)userDict)
