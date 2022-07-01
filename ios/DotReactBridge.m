@@ -9,7 +9,6 @@
 #import "DotReactBridge.h"
 #import <React/RCTConvert.h>
 #import <DOT/DOT.h>
-#import <DOX/DOX.h>
 
 @implementation DotReactBridge
   RCT_EXPORT_MODULE();
@@ -107,62 +106,6 @@ RCT_EXPORT_METHOD(setUser:(NSDictionary *)userDict)
 RCT_EXPORT_METHOD(setUserLogout)
 {
   [DOT setUserLogout];
-}
-
-//DOX Bridge 함수
-
-RCT_EXPORT_METHOD(userIdentify:(NSString *)userIdentify)
-{
-  NSLog(@"============ userIdentify : %@================", userIdentify);
-  NSData *jsonData = [userIdentify dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *error;
-  NSMutableDictionary *userIdentifyDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-  
-  [DOX userIdentifyWith:userIdentifyDict];
-}
-
-RCT_EXPORT_METHOD(groupIdentify:(NSString *)groupIdentify)
-{
-  NSLog(@"============ groupIdentify : %@================", groupIdentify);
-  
-  NSData *jsonData = [groupIdentify dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *error;
-  NSMutableDictionary *groupIdentifyDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-  
-  NSDictionary *groups = (NSDictionary *)[groupIdentifyDict objectForKey:@"groups"];
-  NSDictionary *groupproperties = (NSDictionary *)[groupIdentifyDict objectForKey:@"groupproperties"];
-  
-  [DOX groupIdentifyWith:groups identify:groupproperties];
-}
-
-
-RCT_EXPORT_METHOD(logXEvent:(NSString *)event)
-{
-  NSLog(@"============ event : %@================", event);
-  NSData *jsonData = [event dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *error;
-  NSMutableDictionary *eventDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-  
-  [DOX logEventWith:eventDict];
-}
-
-RCT_EXPORT_METHOD(logXConversion:(NSString *)conversion)
-{
-  NSLog(@"============ conversion : %@================", conversion);
-  NSData *jsonData = [conversion dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *error;
-  NSMutableDictionary *conversionDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-  [DOX logConversionWith:conversionDict];
-}
-
-RCT_EXPORT_METHOD(logXPurchase:(NSString *)purchase)
-{
-  NSLog(@"============ purchase : %@================", purchase);
-  NSData *jsonData = [purchase dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *error;
-  NSMutableDictionary *purchseDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:&error];
-  
-  [DOX logRevenueWith:purchseDict];
 }
 
 @end
