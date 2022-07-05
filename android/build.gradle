@@ -39,8 +39,7 @@ repositories {
     maven { url 'https://wisetracker.jfrog.io/artifactory/wisetracker-gradle-release-local' }
 } 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation 'com.facebook.react:react-native:+'
     implementation "com.sdk.wisetracker:base_module:+"
-    implementation "com.sdk.wisetracker:new_dot_module:+"
-    implementation 'com.sdk.wisetracker:dox_module:+'
+    implementation "com.sdk.wisetracker:new_dot_module:+"\
 }
