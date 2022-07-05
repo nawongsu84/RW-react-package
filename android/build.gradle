@@ -41,5 +41,5 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation "com.sdk.wisetracker:base_module:+"
-    implementation "com.sdk.wisetracker:new_dot_module:+"\
+    implementation "com.sdk.wisetracker:new_dot_module:+"
 }
