@@ -71,18 +71,21 @@ RCT_EXPORT_METHOD(onStartPage)
   [DOT onStartPage];
 }
 
-RCT_EXPORT_METHOD(setUser:(NSDictionary *)userDict)
+RCT_EXPORT_METHOD(setUser:(NSString *)user)
 {
-  NSLog(@"============ userDict : %@================", userDict);
-  
-  
-  User *user = [[User alloc] init];
-  user = [self convertToDOTUser:userDict];
-  
-  NSLog(@"============ user memeber : %@================", user.member);
-  [DOT setUser:user];
-  
-}
+  NSLog(@"============ userDict : %@================", user);
+
+  NSData *jsonData = [user dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *userDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+   
+  User *userObject = [[User alloc] init];
+  userObject = [self convertToDOTUser:userDict];
+
+  NSLog(@"============ user memeber : %@================", userObject.member);
+  [DOT setUser:userObject];
+
+} 
 
 - (User *)convertToDOTUser:(NSDictionary *)userDict {
   
