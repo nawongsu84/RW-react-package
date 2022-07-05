@@ -10,10 +10,13 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.sdk.wisetracker.base.open.model.User; 
 import com.sdk.wisetracker.new_dot.open.DOT;
+import com.sdk.wisetracker.base.tracker.util.ValueOf;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -119,6 +122,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             Log.e(TAG, "set facebook referrer error !!", e);
         }
     }
+
 
     @ReactMethod
     public void setUser(String json) {
