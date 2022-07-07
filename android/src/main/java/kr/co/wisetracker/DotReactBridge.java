@@ -16,7 +16,6 @@ import com.sdk.wisetracker.base.open.model.User;
 import com.sdk.wisetracker.new_dot.open.DOT;
 import com.sdk.wisetracker.base.tracker.util.ValueOf;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
