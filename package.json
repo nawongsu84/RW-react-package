@@ -1,6 +1,6 @@
 {
   "name": "DotReactNativeBridge",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "Javascript Interface Library for native analytics sdk of wisetracker.", 
   "main": "dop-native-sdk-inf", 
   "author": {

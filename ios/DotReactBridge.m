@@ -21,6 +21,12 @@
     });
   }
 
+RCT_EXPORT_METHOD(setPushToken:(NSString *)token)
+{
+  NSLog(@"============ setPushToken : %@================", token);
+  [DOT setPushToken:token];
+}
+
 RCT_EXPORT_METHOD(logClick:(NSString *)click)
 {
   NSLog(@"============ click : %@================", click);
