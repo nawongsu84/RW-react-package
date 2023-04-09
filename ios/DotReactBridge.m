@@ -13,19 +13,95 @@
 @implementation DotReactBridge
   RCT_EXPORT_MODULE();
 
+ 
 
-  RCT_EXPORT_METHOD(initialization)
-  {
-     dispatch_async(dispatch_get_main_queue(), ^{
-       [DOT initialization:nil application:nil];
-    });
-  }
-
+/**
+ * Push Message 관련 함수 
+ **/  
 RCT_EXPORT_METHOD(setPushToken:(NSString *)token)
 {
   NSLog(@"============ setPushToken : %@================", token);
   [DOT setPushToken:token];
 }
+
+RCT_EXPORT_METHOD(setPushClick:(NSString *)clickData)
+{
+  NSLog(@"============ setPushClick : %@================", clickData); 
+  NSData *jsonData = [clickData dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *e;
+  NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e]; 
+  [DOT setPushClick:dict];
+}
+
+
+/**
+ * 딥링크 관련 함수.  
+ **/
+RCT_EXPORT_METHOD(setDeepLink:(NSString *)deepLink)
+{
+  NSLog(@"============ setDeepLink : %@================", deepLink);  
+  [DOT setDeepLink:deepLink];
+}
+
+RCT_EXPORT_METHOD(setFacebookReferrer:(NSString *)deepLink)
+{
+  NSLog(@"============ setFacebookReferrer : %@================", deepLink);  
+  [DOT setFacebookReferrer:deepLink];
+}
+
+
+/**
+ * ATT 동의 관련 함수 
+ **/
+RCT_EXPORT_METHOD(setIDFA:(NSString *)idfa)
+{
+  NSLog(@"============ setIDFA : %@================", idfa);  
+  [DOT setIDFA:idfa];
+} 
+RCT_EXPORT_METHOD(denyATT)
+{
+  NSLog(@"============ denyATT================");
+  [DOT denyATT];
+}
+RCT_EXPORT_METHOD(setATTAuthorizationStatus:(NSInteger *)status)
+{
+  NSLog(@"============ setATTAuthorizationStatus================");
+  [DOT setATTAuthorizationStatus:status];
+} 
+
+
+RCT_EXPORT_METHOD(setUser:(NSString *)user)
+{
+  NSLog(@"============ userDict : %@================", user);
+
+  NSData *jsonData = [user dataUsingEncoding:NSUTF8StringEncoding];
+  NSError *error;
+  NSMutableDictionary *userDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+   
+  User *userObject = [[User alloc] init];
+  userObject = [self convertToDOTUser:userDict];
+
+  NSLog(@"============ user memeber : %@================", userObject.member);
+  [DOT setUser:userObject];
+
+} 
+
+RCT_EXPORT_METHOD(setUserLogout)
+{
+  [DOT setUserLogout];
+} 
+
+RCT_EXPORT_METHOD(onStartPage)
+{
+  NSLog(@"============ onStartPage================");
+  [DOT onStartPage];
+}
+
+RCT_EXPORT_METHOD(onStopPage)
+{
+  NSLog(@"============ onStopPage================");
+  [DOT onStopPage];
+} 
 
 RCT_EXPORT_METHOD(logClick:(NSString *)click)
 {
@@ -70,29 +146,7 @@ RCT_EXPORT_METHOD(logPurchase:(NSString *)puchase)
   [DOT logPurchase:puchaseDict];
   
 }
-
-RCT_EXPORT_METHOD(onStartPage)
-{
-  NSLog(@"============ onStartPage================");
-  [DOT onStartPage];
-}
-
-RCT_EXPORT_METHOD(setUser:(NSString *)user)
-{
-  NSLog(@"============ userDict : %@================", user);
-
-  NSData *jsonData = [user dataUsingEncoding:NSUTF8StringEncoding];
-  NSError *error;
-  NSMutableDictionary *userDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
-   
-  User *userObject = [[User alloc] init];
-  userObject = [self convertToDOTUser:userDict];
-
-  NSLog(@"============ user memeber : %@================", userObject.member);
-  [DOT setUser:userObject];
-
-} 
-
+ 
 - (User *)convertToDOTUser:(NSDictionary *)userDict {
   
   User *user = [[User alloc] init];
@@ -110,10 +164,6 @@ RCT_EXPORT_METHOD(setUser:(NSString *)user)
   user.attribute5 = [RCTConvert NSString:userDict[@"ut5"]];
   
   return user;
-}
-RCT_EXPORT_METHOD(setUserLogout)
-{
-  [DOT setUserLogout];
 }
 
 @end

@@ -45,29 +45,16 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         return "DotReactBridge";
     }
 
+  
+    /**
+     * Push Message 관련 함수 
+     **/ 
     @ReactMethod
-    public void initialization() {
+    public void setPushClick(String jsonString) {
         try {
-            Log.d(TAG, "initialization call");
-            DOT.open("react-native");
-            DOT.initialization(getReactApplicationContext());
-        } catch (Exception e) {
-            Log.e(TAG, "initialization error !!", e);
-        }
-    }
-
-    @ReactMethod
-    public void setPushReceiver(Intent intent) {
-        try {
-            DOT.setPushReceiver(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "set push receiver error !!", e);
-        }
-    }
-
-    @ReactMethod
-    public void setPushClick(Intent intent) {
-        try {
+            Log.i(TAG, "jsonString: " + jsonString);
+            Intent intent = new Intent();
+            intent.putExtra("RW_push_payload_WP", jsonString);
             DOT.setPushClick(getReactApplicationContext(), intent);
         } catch (Exception e) {
             Log.e(TAG, "set push click error !!", e);
@@ -83,6 +70,9 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * 딥링크 관련 함수.  
+     **/
     @ReactMethod
     public void setDeepLink(Intent intent) {
         try {
@@ -93,8 +83,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             Log.e(TAG, "set deep link error !!", e);
         }
-    }
-
+    } 
     @ReactMethod
     public void setDeepLink(String url) {
         try {
@@ -103,7 +92,6 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             Log.e(TAG, "set deep link error !!", e);
         }
     }
-
     @ReactMethod
     public void setInstallReferrer(ReferrerDetails referrerDetails) {
         try {
@@ -121,6 +109,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             Log.e(TAG, "set facebook referrer error !!", e);
         }
     }
+
 
 
     @ReactMethod
