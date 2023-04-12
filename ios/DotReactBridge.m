@@ -30,7 +30,7 @@ RCT_EXPORT_METHOD(setPushClick:(NSString *)clickData)
   NSData *jsonData = [clickData dataUsingEncoding:NSUTF8StringEncoding];
   NSError *e;
   NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e]; 
-  [DOT setPushClick:dict];
+  [DOT setPushClick:dict application:nil];
 }
 
 
