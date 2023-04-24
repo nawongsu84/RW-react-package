@@ -23,16 +23,21 @@ RCT_EXPORT_METHOD(setPushToken:(NSString *)token)
   NSLog(@"============ setPushToken : %@================", token);
   [DOT setPushToken:token];
 }
-
+ 
 RCT_EXPORT_METHOD(setPushClick:(NSString *)clickData)
 {
-  NSLog(@"============ setPushClick : %@================", clickData); 
+  NSLog(@"============ setPushClick : %@================", clickData);
   NSData *jsonData = [clickData dataUsingEncoding:NSUTF8StringEncoding];
   NSError *e;
-  NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e]; 
-  [DOT setPushClick:dict application:nil];
-}
+  
+  // RW_push_payload_WP data
+  NSDictionary *rw_push_payload_wp_datadict = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
 
+  NSMutableDictionary *RW_push_payload_WP = [[NSMutableDictionary alloc] init];
+  [RW_push_payload_WP setValue:rw_push_payload_wp_datadict forKey:@"RW_push_payload_WP"]; 
+  
+  [DOT setPushClick:RW_push_payload_WP application:nil];
+} 
 
 /**
  * 딥링크 관련 함수.  
