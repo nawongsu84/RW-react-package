@@ -101,6 +101,9 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * Facebook 관련 함수 
+     * **/
     @ReactMethod
     public void setFacebookReferrer(Bundle bundle) {
         try {
@@ -109,6 +112,23 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
             Log.e(TAG, "set facebook referrer error !!", e);
         }
     }
+    @ReactMethod
+    public void setFacebookReferrer(String fbReferrer) {
+        try {
+            DOT.setFacebookReferrer(fbReferrer);
+        } catch (Exception e) {
+            Log.e(TAG, "set facebook referrer error !!", e);
+        }
+    }
+    @ReactMethod
+    public void receiveFailFacebookReferrer(int type) {
+        try {
+            DOT.receiveFailFacebookReferrer(type);
+        } catch (Exception e) {
+            Log.e(TAG, "set facebook referrer error !!", e);
+        }
+    }
+
 
 
 
