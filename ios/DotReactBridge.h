@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
-
+#import <React/RCTEventEmitter.h> 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DotReactBridge : NSObject <RCTBridgeModule>
-
+@interface DotReactBridge : RCTEventEmitter <RCTBridgeModule> 
+-(void) emitDeferredLink:(NSString *)link;
 @end
 
 NS_ASSUME_NONNULL_END

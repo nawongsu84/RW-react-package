@@ -13,8 +13,6 @@
 @implementation DotReactBridge
   RCT_EXPORT_MODULE();
 
- 
-
 /**
  * Push Message 관련 함수 
  **/  
@@ -151,7 +149,7 @@ RCT_EXPORT_METHOD(logPurchase:(NSString *)puchase)
   [DOT logPurchase:puchaseDict];
   
 }
- 
+                  
 - (User *)convertToDOTUser:(NSDictionary *)userDict {
   
   User *user = [[User alloc] init];
@@ -169,6 +167,16 @@ RCT_EXPORT_METHOD(logPurchase:(NSString *)puchase)
   user.attribute5 = [RCTConvert NSString:userDict[@"ut5"]];
   
   return user;
+}
+
+/**
+ * Deferred Link 를 front 로 전달하기 위해서 구현된 코드
+ **/ 
+- (NSArray<NSString *> *)supportedEvents {
+ return @[@"emitDeferredLink"];
+}
+RCT_EXPORT_METHOD(emitDeferredLink:(NSString *)link){
+  [self sendEventWithName:@"emitDeferredLink" body:@{@"link": link}];
 }
 
 @end

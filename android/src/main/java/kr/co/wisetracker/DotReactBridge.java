@@ -9,10 +9,12 @@ import com.android.installreferrer.api.ReferrerDetails;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
-import com.sdk.wisetracker.base.open.model.User; 
+import com.sdk.wisetracker.base.open.model.User;
+import com.sdk.wisetracker.base.tracker.common.log.WiseLog;
 import com.sdk.wisetracker.new_dot.open.DOT;
 import com.sdk.wisetracker.base.tracker.util.ValueOf;
 
@@ -72,18 +74,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
 
     /**
      * 딥링크 관련 함수.  
-     **/
-    @ReactMethod
-    public void setDeepLink(Intent intent) {
-        try {
-            if (intent == null) {
-                return;
-            }
-            DOT.setDeepLink(getReactApplicationContext(), intent);
-        } catch (Exception e) {
-            Log.e(TAG, "set deep link error !!", e);
-        }
-    } 
+     **/ 
     @ReactMethod
     public void setDeepLink(String url) {
         try {
@@ -91,27 +82,11 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             Log.e(TAG, "set deep link error !!", e);
         }
-    }
-    @ReactMethod
-    public void setInstallReferrer(ReferrerDetails referrerDetails) {
-        try {
-            DOT.setInstallReferrer(referrerDetails);
-        } catch (Exception e) {
-            Log.e(TAG, "set install referrer error !!", e);
-        }
-    }
+    } 
 
     /**
      * Facebook 관련 함수 
-     * **/
-    @ReactMethod
-    public void setFacebookReferrer(Bundle bundle) {
-        try {
-            DOT.setFacebookReferrer(bundle);
-        } catch (Exception e) {
-            Log.e(TAG, "set facebook referrer error !!", e);
-        }
-    }
+     * **/ 
     @ReactMethod
     public void setFacebookReferrer(String fbReferrer) {
         try {
@@ -127,11 +102,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             Log.e(TAG, "set facebook referrer error !!", e);
         }
-    }
-
-
-
-
+    } 
     @ReactMethod
     public void setUser(String json) {
         try {
@@ -153,17 +124,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setUserLogout() {
         DOT.setUserLogout();
-    }
-
-    @ReactMethod
-    public void onPlayStart() {
-        try {
-            DOT.onPlayStart();
-        } catch (Exception e) {
-            Log.e(TAG, "onPlayStart error !!", e);
-        }
-    }
-
+    } 
     @ReactMethod
     public void onPlayStart(String period) {
         try {
@@ -287,9 +248,7 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             Log.e(TAG, "log click error !!", e);
         }
-    }
-
-     
+    } 
 
     private Map<String, String> getGroups(String groups) {
 
@@ -309,6 +268,17 @@ public class DotReactBridge extends ReactContextBaseJavaModule {
 
         return null;
 
-    } 
-
+    }
+    /**
+     * Deferred Link 를 front 로 전달하기 위해서 구현된 코드
+     **/
+    public void emitDeferredLink(String value) {
+        // React Native로 값 전송
+        try{
+            getReactApplicationContext().getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("emitDeferredLink", value);
+            WiseLog.d("emitDeferredLink => "+value);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
