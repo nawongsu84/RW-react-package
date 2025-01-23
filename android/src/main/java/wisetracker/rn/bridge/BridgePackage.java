@@ -1,4 +1,4 @@
-package kr.co.wisetracker;
+package wisetracker.rn.bridge;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

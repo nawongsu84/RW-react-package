@@ -1,4 +1,4 @@
-package kr.co.wisetracker;
+package wisetracker.rn.bridge;
 
 import android.content.Intent;
 import android.os.Bundle;
